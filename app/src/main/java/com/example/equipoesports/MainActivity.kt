@@ -4,6 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import com.example.equipoesports.ui.theme.EquipoEsportsTheme
 
 
@@ -21,6 +28,16 @@ class MainActivity : ComponentActivity() {
                 PantallaPrincipal() // Llamamos a nuestra función principal de diseño
             }
         }
-
+    }
+    @Composable
+    fun PantallaPrincipal() {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()                           // Ocupa toda la pantalla (ancho y alto)
+                .background(Color(0xFF121212))           // Pone un color de fondo oscuro (estilo gaming)
+                .statusBarsPadding()                     // Evita que el contenido choque con la cámara o la hora del móvil
+        ) {
+            // Aquí irán los elementos de nuestra pantalla en orden vertical (Column)
+        }
     }
 }
