@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.equipoesports.ui.theme.EquipoEsportsTheme
@@ -175,5 +176,17 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-
+    }
+    @Preview(showBackground = true, backgroundColor =0xFF121212 )
+    @Composable
+    fun JugadorPreview() {
+        EquipoEsportsTheme() {
+            Jugador(
+                nombre = "AlexPro",
+                rol = "Atacante",
+                edad = 21,
+                nivel = 87,
+                imagen = R.drawable.jugador1
+            )
+        }
     }
