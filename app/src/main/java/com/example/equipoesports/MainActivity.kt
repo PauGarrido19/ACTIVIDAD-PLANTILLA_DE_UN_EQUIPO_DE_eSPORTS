@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -64,9 +65,54 @@ class MainActivity : ComponentActivity() {
                     .align(Alignment.CenterHorizontally)   // Centra el texto horizontalmente dentro de la columna
                     .padding(top = 24.dp, bottom = 16.dp)  // Espaciado arriba y abajo
             )
+            // JUGADOR 1
+            Jugador(
+                nombre = "AlexPro",
+                rol = "Atacante",
+                edad = 21,
+                nivel = 87,
+                imagen = R.drawable.jugador1
+            )
+            SeparadorJugadores()
+            Jugador(
+                nombre = "ShadowX",
+                rol = "Defensor",
+                edad = 24,
+                nivel = 91,
+                imagen = R.drawable.jugador2
+            )
+            SeparadorJugadores()
+
+            // 3. JUGADOR: MartaGG
+            Jugador(
+                nombre = "MartaGG",
+                rol = "Soporte",
+                edad = 20,
+                nivel = 84,
+                imagen = R.drawable.jugador3
+            )
+            SeparadorJugadores()
+
+            // 4. JUGADOR: Destroyer
+            Jugador(
+                nombre = "Destroyer",
+                rol = "Atacante",
+                edad = 23,
+                nivel = 89,
+                imagen = R.drawable.jugador4
+            )
+        }
         }
     }
 
+    @Composable
+    fun SeparadorJugadores(){
+        HorizontalDivider(
+            thickness = 2.dp,
+            color = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f), // Línea semitransparente con el color principal
+            modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp)
+        )
+    }
     @Composable
     fun Jugador(
         nombre: String,
