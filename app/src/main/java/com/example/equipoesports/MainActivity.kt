@@ -45,10 +45,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             // 3. Aplicamos el tema de colores y estilos que define tu proyecto
             EquipoEsportsTheme() {
-                PantallaPrincipal() // Llamamos a nuestra función principal de diseño
+                PantallaPrincipal()
             }
         }
     }
+}
     @Composable
     fun PantallaPrincipal() {
         Column(
@@ -103,7 +104,6 @@ class MainActivity : ComponentActivity() {
                 nivel = 89,
                 imagen = R.drawable.jugador4
             )
-        }
         }
     }
 
@@ -181,12 +181,6 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun JugadorPreview() {
         EquipoEsportsTheme() {
-            Jugador(
-                nombre = "AlexPro",
-                rol = "Atacante",
-                edad = 21,
-                nivel = 87,
-                imagen = R.drawable.jugador1
-            )
+            PantallaPrincipal()
         }
     }
