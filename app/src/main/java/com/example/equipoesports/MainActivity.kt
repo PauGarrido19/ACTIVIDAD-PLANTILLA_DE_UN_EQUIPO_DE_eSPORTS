@@ -10,8 +10,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -19,12 +21,18 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -67,11 +75,17 @@ val listaJugadores = mutableStateListOf(
 
 @Composable
 fun PantallaPrincipal() {
+    var nombreInput by remember { mutableStateOf("") }
+    var nicknameInput by remember { mutableStateOf("") }
+    var rolInput by remember { mutableStateOf("") }
+    var errorMsg by remember { mutableStateOf("") }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFF121212))
             .statusBarsPadding()
+            .padding(16.dp)
     ) {
 
         Text(
@@ -83,6 +97,77 @@ fun PantallaPrincipal() {
                 .align(Alignment.CenterHorizontally)
                 .padding(top = 24.dp, bottom = 16.dp)
         )
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp)
+        ) {
+            OutlinedTextField(
+                value = nombreInput,
+                onValueChange = { nombreInput = it },
+                label = { Text("Nombre del jugador") },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            OutlinedTextField(
+                value = nicknameInput,
+                onValueChange = { nicknameInput = it },
+                label = { Text("Nickname") },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            OutlinedTextField(
+                value = rolInput,
+                onValueChange = { rolInput = it },
+                label = { Text("Rol (ej. Mid, Top...)") },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true
+            )
+
+            if (errorMsg.isNotEmpty()) {
+                Text(
+                    text = errorMsg,
+                    color = Color.Red,
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Button(
+                onClick = {
+                    if (nombreInput.isBlank() || nicknameInput.isBlank() || rolInput.isBlank()) {
+                        errorMsg = "Por favor, rellena todos los campos."
+                    } else {
+                        errorMsg = ""
+
+                        val nuevoId = if (listaJugadores.isEmpty()) 1 else listaJugadores.maxOf { it.id } + 1
+
+                        listaJugadores.add(
+                            Jugador(
+                                id = nuevoId,
+                                nombre = nombreInput,
+                                nickname = nicknameInput,
+                                rol = rolInput
+                            )
+                        )
+
+                        nombreInput = ""
+                        nicknameInput = ""
+                        rolInput = ""
+                    }
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Añadir jugador")
+            }
+        }
+
+        HorizontalDivider(modifier = Modifier.padding(bottom = 8.dp))
         ListaJugadores(jugadores = listaJugadores)
     }
 }
